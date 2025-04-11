@@ -5,21 +5,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
 class ConnectionHelper {
-  handleResult(ConnectivityResult result, Emitter<ConnectivityState> emit) {
+  Future<void> handleResult(
+    ConnectivityResult result,
+    Emitter<ConnectivityState> emit,
+  ) async {
     final connectionStatus = _mapConnectivityToMessage(result);
+    final hasConnection = await _checkInternetConnection();
     final icon = _mapConnectivityToIcon(result);
-    emit(ConnectivityUpdated(connectionStatus, icon));
+
+    emit(ConnectivityUpdated(connectionStatus, hasConnection, icon));
   }
 
-  Future<String> checkInternetConnection() async {
+  Future<String> _checkInternetConnection() async {
     try {
-      final hasInternet = await InternetConnection().hasInternetAccess;
-      if (hasInternet) {
-        return "Internet Access Available";
-      }
-      return "No Internet Access";
+      return await InternetConnection().hasInternetAccess
+          ? "Internet Access Available"
+          : "No Internet Access";
     } catch (e) {
-      return "Error Checking Internet";
+      return "Error Checking Internet: ${e.toString()}";
     }
   }
 }

@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Connection Check',
         theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme()),
-        home: const ConnectivityScreen(),
+        home: ConnectivityScreen(),
       ),
     );
   }

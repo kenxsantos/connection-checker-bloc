@@ -8,5 +8,3 @@ final class ConnectivityChanged extends ConnectivityEvent {
   final ConnectivityResult connectionStatus;
   ConnectivityChanged(this.connectionStatus);
 }
-
-final class ConnectivitytAccess extends ConnectivityEvent {}

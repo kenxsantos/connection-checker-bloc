@@ -23,30 +23,10 @@ class ConnectivityScreen extends StatelessWidget {
             if (state is ConnectivityInitial || state is ConnectivityLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is ConnectivityUpdated) {
-              return FutureBuilder<String>(
-                future: helper.checkInternetConnection(),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return ConnectivityCard(
-                      icon: state.icon,
-                      status: state.connectionStatus,
-                      internetAccessText: "Checking Internet Access...",
-                    );
-                  } else if (snapshot.hasError) {
-                    return ConnectivityCard(
-                      icon: state.icon,
-                      status: state.connectionStatus,
-                      internetAccessText: "Error Checking Internet",
-                    );
-                  } else {
-                    return ConnectivityCard(
-                      icon: state.icon,
-                      status: state.connectionStatus,
-                      internetAccessText:
-                          snapshot.data ?? "Unknown Internet Access",
-                    );
-                  }
-                },
+              return ConnectivityCard(
+                icon: state.icon,
+                status: state.connectionStatus,
+                internetAccessText: state.hasConnection,
               );
             } else if (state is ConnectivityError) {
               return ConnectivityCard(

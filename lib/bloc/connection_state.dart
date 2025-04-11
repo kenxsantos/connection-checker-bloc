@@ -9,8 +9,9 @@ class ConnectivityInitial extends ConnectivityState {
 
 class ConnectivityUpdated extends ConnectivityState {
   final String connectionStatus;
+  final String hasConnection;
   final Icon icon;
-  ConnectivityUpdated(this.connectionStatus, this.icon);
+  ConnectivityUpdated(this.connectionStatus, this.hasConnection, this.icon);
 }
 
 class ConnectivityError extends ConnectivityState {
